@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import fs from 'fs';
 
 const app = express();
@@ -12,7 +13,7 @@ app.get('/', (req,res) => {
 
 // Read data from the JSON file
 const readData = () => {
-    const rawData = fs.readFileSync('./json/book.json');
+    const rawData = fs.readFileSync('./data/book.json');
     return JSON.parse(rawData);
 };
   
