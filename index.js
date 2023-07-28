@@ -13,7 +13,7 @@ app.get('/', (req,res) => {
 
 // Read data from the JSON file
 const readData = () => {
-    const rawData = fs.readFileSync('./data/book.json');
+    const rawData = fs.readFileSync('data/book.json');
     return JSON.parse(rawData);
 };
   
