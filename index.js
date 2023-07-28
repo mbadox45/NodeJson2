@@ -23,6 +23,10 @@ const readData = () => {
 // };
   
 // Get all books
+app.get('/hello', (req, res) => {
+    const data = readData();
+    res.status(200).json({status:true,code:200,msg: "Hello Darling"});
+});
 app.get('/books', (req, res) => {
     const data = readData();
     res.status(200).json({status:true,code:200,data:data.books});
