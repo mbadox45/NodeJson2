@@ -2,7 +2,7 @@ const express = require('express');
 var path = require('path');
 const fs = require('fs');
 const app = express();
-var filename = path.basename(__filename);
+// var filename = path.basename(__filename);
 const usersRouter = require('./routes/users');
 
 app.use(express.json());
@@ -15,7 +15,8 @@ app.use('/api/users', usersRouter);
     // };
     
 app.get('/', (req, res) => {
-    console.log(filename);
+    const filePath = path.join(__dirname, 'data', 'users.json');
+    console.log(filePath);
     res.status(200).send({code:200, status: true, msg: "Hello"});
 });
 
