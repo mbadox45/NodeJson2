@@ -19,7 +19,7 @@ function saveUsers(users) {
 // Get all users
 router.get('/', (req, res) => {
   const users = getUsers();
-  res.json(users);
+  res.status(200).send(users);
 });
 
 // Get a specific user by ID
@@ -28,9 +28,9 @@ router.get('/:id', (req, res) => {
   const user = users.find((user) => user.id === req.params.id);
 
   if (!user) {
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).send({ message: 'User not found' });
   } else {
-    res.json(user);
+    res.status(200).send(user);
   }
 });
 
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
   const newUser = req.body;
   users.push(newUser);
   saveUsers(users);
-  res.status(201).json(newUser);
+  res.status(201).send(newUser);
 });
 
 // Update an existing user
@@ -50,11 +50,11 @@ router.put('/:id', (req, res) => {
   const index = users.findIndex((user) => user.id === req.params.id);
 
   if (index === -1) {
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).send({ message: 'User not found' });
   } else {
     users[index] = { ...users[index], ...updatedUser };
     saveUsers(users);
-    res.json(users[index]);
+    res.status(200).send(users[index]);
   }
 });
 
@@ -64,7 +64,7 @@ router.delete('/:id', (req, res) => {
   const index = users.findIndex((user) => user.id === req.params.id);
 
   if (index === -1) {
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).send({ message: 'User not found' });
   } else {
     users.splice(index, 1);
     saveUsers(users);
