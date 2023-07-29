@@ -3,7 +3,7 @@ const express = require('express');
 const fs = require('fs');
 const router = express.Router();
 
-const USERS_FILE = './data/users.json';
+const USERS_FILE = '../data/users.json';
 
 // Read users from the JSON file
 function getUsers() {
