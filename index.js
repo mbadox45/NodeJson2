@@ -8,7 +8,7 @@ app.get('/api/users', (req, res) => {
   fs.readFile('data/users.json', 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading file:', err);
-      return res.status(500).json({ error: 'Server Error' });
+      return res.status(500).json({ error: 'Server Error before' });
     }
 
     try {
@@ -16,7 +16,7 @@ app.get('/api/users', (req, res) => {
       res.json(users);
     } catch (err) {
       console.error('Error parsing JSON:', err);
-      res.status(500).json({ error: 'Server Error' });
+      res.status(500).json({ error: 'Server Error after' });
     }
   });
 });
