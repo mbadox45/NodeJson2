@@ -9,6 +9,10 @@ app.get('/', (req, res) => {
     res.status(200).send({code:200, status: true, msg: "Hello"});
 });
 
+app.get('/test', (req, res) => {
+  res.status(200).send({code:200, status: true, msg: "Test"});
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
