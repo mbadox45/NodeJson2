@@ -5,20 +5,21 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get('/api/users', (req, res) => {
-  fs.readFile('data/users.json', 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading file:', err);
-      return res.status(500).json({ error: 'Server Error before' });
-    }
+    const filePath = path.join(__dirname, 'data', 'users.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).json({ error: 'Server Error before' });
+        }
 
-    try {
-      const users = JSON.parse(data);
-      res.json(users);
-    } catch (err) {
-      console.error('Error parsing JSON:', err);
-      res.status(500).json({ error: 'Server Error after' });
-    }
-  });
+        try {
+            const users = JSON.parse(data);
+            res.json(users);
+        } catch (err) {
+            console.error('Error parsing JSON:', err);
+            res.status(500).json({ error: 'Server Error after' });
+        }
+    });
 });
 
 app.listen(port, () => {
