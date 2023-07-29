@@ -5,12 +5,23 @@ const usersRouter = require('./routes/users');
 app.use(express.json());
 app.use('/api/users', usersRouter);
 
+// Read data from the JSON file
+const readData = () => {
+    const rawData = fs.readFileSync('./data/book.json');
+    return JSON.parse(rawData);
+};
+
 app.get('/', (req, res) => {
     res.status(200).send({code:200, status: true, msg: "Hello"});
 });
 
 app.get('/test', (req, res) => {
-  res.status(200).send({code:200, status: true, msg: "Test"});
+    res.status(200).send({code:200, status: true, msg: "Test"});
+});
+
+app.get('/book', (req, res) => {
+    const data = readData();
+    res.status(200).json({status:true,code:200,data:data.books});
 });
 
 const PORT = process.env.PORT || 3000;
