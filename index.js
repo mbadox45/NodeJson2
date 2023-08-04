@@ -17,7 +17,7 @@ app.use('/api/users', usersRouter);
 app.get('/', (req, res) => {
     const filePath = path.join(process.cwd(), 'data', 'users.json');
     console.log(filePath);
-    res.status(200).send({code:200, status: true, msg: "Hello"});
+    res.status(200).send({code:200, status: true, data: filePath});
 });
 
 app.get('/test', (req, res) => {
