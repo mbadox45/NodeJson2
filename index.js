@@ -1,41 +1,50 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
-const { Pool } = require('pg');
-
-// Configure the PostgreSQL connection
-const connectionString = "postgres://default:C5Iq9zgUcRbk@ep-green-surf-743146.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb";
-
-const pool = new Pool({
-  connectionString: connectionString,
-});
-
+var path = require('path');
+const fs = require('fs');
 const app = express();
-const port = process.env.PORT || 3000;
+// var filename = path.basename(__filename);
+const usersRouter = require('./routes/users');
 
 app.use(express.json());
+app.use('/api/users', usersRouter);
 
-app.get('/users', (req, res) => {
-    pool.query('SELECT * FROM users', (error, results) => {
-        if (error) {
-            res.status(500).json({ error: 'Internal server error' });
-        } else {
-            res.json(results.rows);
+// Read data from the JSON file
+// const readData = () => {
+    //     const rawData = fs.readFileSync('./data/book.json');
+    //     return JSON.parse(rawData);
+    // };
+    
+app.get('/', (req, res) => {
+    const filePath = path.join(process.cwd(), 'data', 'users.json');
+    console.log(filePath);
+    res.status(200).send({code:200, status: true, msg: "Hello"});
+});
+
+app.get('/test', (req, res) => {
+    res.status(200).send({code:200, status: true, msg: "Test"});
+});
+
+app.get('/user', (req, res) => {
+    fs.readFile('data/users.json', 'utf8', (err, data) => {
+        if (err) {
+          console.error('Error reading file:', err);
+          return res.status(500).send({ error: 'Server Error' });
+        }
+    
+        try {
+            const users = JSON.parse(data);
+            res.status(200).send(users);
+        } catch (err) {
+            console.error('Error parsing JSON:', err);
+            res.status(500).send({ error: 'Server Error' });
         }
     });
 });
 
-app.post('/users', (req, res) => {
-    const { name, email } = req.body;
-    pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, result) => {
-        if (error) {
-            res.status(500).json({ error: 'Internal server error' });
-        } else {
-            res.status(201).json({ message: 'User created successfully' });
-        }
-    });
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+module.exports = app;
