@@ -2,10 +2,13 @@ const express = require('express');
 var path = require('path');
 const fs = require('fs');
 const app = express();
-// const usersRouter = require('./routes/users');
 
 app.use(express.json());
-// app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  return res.status(200).json({ code: 200, status: true, message: 'API Mbadox 45' });
+});
+
 const route = require('./routes/users')
 route(app);
 // app.use('/api/users', usersRouter);

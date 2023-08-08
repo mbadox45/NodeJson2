@@ -7,9 +7,6 @@ const c_user = express();
 c_user.use(express.json());
 
 c_user.get('/', (req, res) => {
-    // const data = model.getuser();
-    // res.json(data);
-
     console.log(filePath);
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
