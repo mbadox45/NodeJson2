@@ -5,7 +5,8 @@ const app = express();
 // const usersRouter = require('./routes/users');
 
 app.use(express.json());
-const route = require('./src/routes/users')
+// app.use(express.static('public'));
+const route = require('./routes/users')
 route(app);
 // app.use('/api/users', usersRouter);
 
