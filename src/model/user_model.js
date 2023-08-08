@@ -2,7 +2,7 @@ var path = require('path');
 const fs = require('fs');
 
 exports.getuser = function(){
-	const filePath = path.join(process.cwd(), '../../data', 'users.json');
+	const filePath = path.join(process.cwd(), '..', '..', 'data', 'users.json');
     console.log(filePath);
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
