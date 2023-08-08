@@ -1,12 +1,10 @@
 const express = require('express');
 var path = require('path');
 const fs = require('fs');
-const model = require('../model/user_model');
 const filePath = path.join(process.cwd(), 'data', 'users.json');
 
 const c_user = express();
 c_user.use(express.json());
-// c_user.use(express.static('public'));
 
 c_user.get('/', (req, res) => {
     // const data = model.getuser();
